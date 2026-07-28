@@ -15,7 +15,6 @@ spec:
     metadata:
       labels:
         tier: frontend
-        env: dev
         app: roboshop
     spec:
       containers:
