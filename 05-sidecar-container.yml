@@ -13,7 +13,8 @@ spec:
     - mountPath: /usr/share/nginx/html
       name: sample
   - name: sidecar-container
-    image: rkalluru/learnk8s:init-container-html-generator
+    image: busybox
+    command: ["/bin/sh", "-c", "while true; do date > /var/log/index.html; sleep 10; done"]
     volumeMounts:
-    - mountPath: /mnt/html
-      name: sample
+    - name: shared-data
+      mountPath: /var/log
