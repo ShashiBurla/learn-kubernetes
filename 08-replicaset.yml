@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
-  name: frontend1
+  name: frontend
   labels:
     app: guestbook
     env: dev
@@ -10,7 +10,7 @@ spec:
   replicas: 3
   selector:
     matchLabels:
-      tier: frontend
+      tier: frontend1
   template:
     metadata:
       labels:
