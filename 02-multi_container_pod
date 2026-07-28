@@ -6,3 +6,5 @@ spec:
   containers:
   - name: test
     image: rkalluru/debug
+  - name: nginx
+    image: nginx
