@@ -4,7 +4,6 @@ metadata:
   name: frontend
   labels:
     app: guestbook
-    tier: frontend
     env: dev
 spec:
   # modify replicas according to your case
@@ -16,6 +15,7 @@ spec:
     metadata:
       labels:
         tier: frontend
+        env: dev
     spec:
       containers:
       - name: nginx
