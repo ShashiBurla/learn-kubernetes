@@ -23,12 +23,28 @@ spec:
     - protocol: TCP
       port: 80 # Service Port
       targetPort: 80 # Container Port
-# ---
-# apiVersion: v1
-# kind: Pod
-# metadata:
-#   name: clusterip-debug
-# spec:
-#   containers:
-#   - name: redhat
-#     image: rkalluru/learnk8s:rhel9-bare
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: catalogue
+  labels:
+    app: catalogue
+spec:
+  containers:
+    - name: catalogue
+      image: burlash.azurecr.io/catalogue:latest
+  imagePullSecrets:
+    - name: acr
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: catalogue
+spec:
+  selector:
+    app: catalogue
+  ports:
+    - protocol: TCP
+      port: 80 # Service Port
+      targetPort: 80 # Container Port
