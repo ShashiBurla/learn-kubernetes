@@ -46,5 +46,5 @@ spec:
     app: catalogue
   ports:
     - protocol: TCP
-      port: 80 # Service Port
-      targetPort: 80 # Container Port
+      port: 8002 # Service Port
+      targetPort: 8002 # Container Port
