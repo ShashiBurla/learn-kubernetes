@@ -127,12 +127,12 @@ spec:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: Payment
+  name: payment
   labels:
-    app: Payment
+    app: payment
 spec:
   containers:
-    - name: Payment
+    - name: payment
       image: burlash.azurecr.io/payment:latest
   imagePullSecrets:
     - name: acr
@@ -140,10 +140,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: Payment
+  name: payment
 spec:
   selector:
-    app: Payment
+    app: payment
   ports:
     - protocol: TCP
       port: 8005 # Service Port
@@ -152,12 +152,12 @@ spec:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: Ratings
+  name: ratings
   labels:
-    app: Ratings
+    app: ratings
 spec:
   containers:
-    - name: Ratings
+    - name: ratings
       image: burlash.azurecr.io/ratings:latest
   imagePullSecrets:
     - name: acr
@@ -165,10 +165,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: Ratings
+  name: ratings
 spec:
   selector:
-    app: Ratings
+    app: ratings
   ports:
     - protocol: TCP
       port: 8006 # Service Port
@@ -177,12 +177,12 @@ spec:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: Orders
+  name: orders
   labels:
-    app: Orders
+    app: orders
 spec:
   containers:
-    - name: Orders
+    - name: orders
       image: burlash.azurecr.io/orders:latest
   imagePullSecrets:
     - name: acr
@@ -190,10 +190,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: Orders
+  name: orders
 spec:
   selector:
-    app: Orders
+    app: orders
   ports:
     - protocol: TCP
       port: 8007 # Service Port
