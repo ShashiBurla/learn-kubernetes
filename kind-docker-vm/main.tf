@@ -74,7 +74,9 @@ resource "null_resource" "kind-setup" {
       "sudo curl -Lo /bin/kind https://kind.sigs.k8s.io/dl/v0.31.0/kind-linux-amd64",
       "sudo curl -Lo /bin/kubectl https://dl.k8s.io/release/v1.36.1/bin/linux/amd64/kubectl",
       "sudo chmod ugo+x /bin/kind /bin/kubectl",
-      "sudo kind create cluster --name rhel10-cluster"
+      "sudo kind create cluster --name rhel10-cluster",
+      "sudo dnf update -y",
+      "sudo dnf install -y https://github.com/derailed/k9s/releases/latest/download/k9s_linux_amd64.rpm"
     ]
 
   }

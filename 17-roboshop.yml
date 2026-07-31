@@ -48,3 +48,153 @@ spec:
     - protocol: TCP
       port: 8002 # Service Port
       targetPort: 8002 # Container Port
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: user
+  labels:
+    app: user
+spec:
+  containers:
+    - name: user
+      image: burlash.azurecr.io/user:latest
+  imagePullSecrets:
+    - name: acr
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: user
+spec:
+  selector:
+    app: user
+  ports:
+    - protocol: TCP
+      port: 8001 # Service Port
+      targetPort: 8001 # Container Port
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: cart
+  labels:
+    app: cart
+spec:
+  containers:
+    - name: cart
+      image: burlash.azurecr.io/cart:latest
+  imagePullSecrets:
+    - name: acr
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cart
+spec:
+  selector:
+    app: cart
+  ports:
+    - protocol: TCP
+      port: 8003 # Service Port
+      targetPort: 8003 # Container Port
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: shipping
+  labels:
+    app: shipping
+spec:
+  containers:
+    - name: shipping
+      image: burlash.azurecr.io/shipping:latest
+  imagePullSecrets:
+    - name: acr
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: shipping
+spec:
+  selector:
+    app: shipping
+  ports:
+    - protocol: TCP
+      port: 8004 # Service Port
+      targetPort: 8004 # Container Port
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: Payment
+  labels:
+    app: Payment
+spec:
+  containers:
+    - name: Payment
+      image: burlash.azurecr.io/payment:latest
+  imagePullSecrets:
+    - name: acr
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: Payment
+spec:
+  selector:
+    app: Payment
+  ports:
+    - protocol: TCP
+      port: 8005 # Service Port
+      targetPort: 8005 # Container Port
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: Ratings
+  labels:
+    app: Ratings
+spec:
+  containers:
+    - name: Ratings
+      image: burlash.azurecr.io/ratings:latest
+  imagePullSecrets:
+    - name: acr
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: Ratings
+spec:
+  selector:
+    app: Ratings
+  ports:
+    - protocol: TCP
+      port: 8006 # Service Port
+      targetPort: 8006 # Container Port
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: Orders
+  labels:
+    app: Orders
+spec:
+  containers:
+    - name: Orders
+      image: burlash.azurecr.io/orders:latest
+  imagePullSecrets:
+    - name: acr
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: Orders
+spec:
+  selector:
+    app: Orders
+  ports:
+    - protocol: TCP
+      port: 8007 # Service Port
+      targetPort: 8007 # Container Port
