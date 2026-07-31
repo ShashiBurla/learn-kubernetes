@@ -8,6 +8,8 @@ spec:
   containers:
     - name: frontend
       image: burlash.azurecr.io/frontend:latest
+  imagePullSecrets:
+    - name: acr
 ---
 apiVersion: v1
 kind: Service
