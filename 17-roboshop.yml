@@ -16,7 +16,7 @@ kind: Service
 metadata:
   name: frontend
 spec:
-  clusterIP:
+  type: LoadBalancer
   selector:
     app: frontend
   ports:
