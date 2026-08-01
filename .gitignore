@@ -6,3 +6,4 @@ terraform.tfstate
 ./kind-docker-vm/terraform.tfstate.backup
 ./kind-docker-vm/terraform.tfstate
 ./kind-docker-vm/.terraform.lock.hcl
+.terraform.tfstate.lock.info
