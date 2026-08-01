@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: roboshop-frontend
+  name: frontend
   labels:
-    app: roboshop-frontend
+    app: frontend
 spec:
   containers:
-    - name: roboshop-frontend
+    - name: frontend
       image: burlash.azurecr.io/frontend:latest
       imagePullPolicy: Always
   
@@ -14,11 +14,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: roboshop-frontend
+  name: frontend
 spec:
   type: LoadBalancer
   selector:
-    app: roboshop-frontend
+    app: frontend
   ports:
     - protocol: TCP
       port: 80 # Service Port
@@ -27,26 +27,26 @@ spec:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: roboshop-catalogue
+  name: catalogue
   labels:
-    app: roboshop-catalogue
+    app: catalogue
 spec:
   containers:
-    - name: roboshop-catalogue
+    - name: catalogue
       image: burlash.azurecr.io/catalogue:latest
       imagePullPolicy: Always
       envFrom:
         - configMapRef:
-            name: roboshop-catalogue
+            name: catalogue
   
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: roboshop-catalogue
+  name: catalogue
 spec:
   selector:
-    app: roboshop-catalogue
+    app: catalogue
   ports:
     - protocol: TCP
       port: 8002 # Service Port
@@ -55,26 +55,26 @@ spec:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: roboshop-user
+  name: user
   labels:
-    app: roboshop-user
+    app: user
 spec:
   containers:
-    - name: roboshop-user
+    - name: user
       image: burlash.azurecr.io/user:latest
       imagePullPolicy: Always
       envFrom:
           - configMapRef:
-              name: roboshop-user
+              name: user
   
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: roboshop-user
+  name: user
 spec:
   selector:
-    app: roboshop-user
+    app: user
   ports:
     - protocol: TCP
       port: 8001 # Service Port
@@ -83,26 +83,26 @@ spec:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: roboshop-cart
+  name: cart
   labels:
-    app: roboshop-cart
+    app: cart
 spec:
   containers:
-    - name: roboshop-cart
+    - name: cart
       image: burlash.azurecr.io/cart:latest
       imagePullPolicy: Always
       envFrom:
           - configMapRef:
-              name: roboshop-cart
+              name: cart
   
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: roboshop-cart
+  name: cart
 spec:
   selector:
-    app: roboshop-cart
+    app: cart
   ports:
     - protocol: TCP
       port: 8003 # Service Port
@@ -111,26 +111,26 @@ spec:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: roboshop-shipping
+  name: shipping
   labels:
-    app: roboshop-shipping
+    app: shipping
 spec:
   containers:
-    - name: roboshop-shipping
+    - name: shipping
       image: burlash.azurecr.io/shipping:latest
       imagePullPolicy: Always
       envFrom:
           - configMapRef:
-              name: roboshop-shipping
+              name: shipping
   
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: roboshop-shipping
+  name: shipping
 spec:
   selector:
-    app: roboshop-shipping
+    app: shipping
   ports:
     - protocol: TCP
       port: 8004 # Service Port
@@ -139,26 +139,26 @@ spec:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: roboshop-payment
+  name: payment
   labels:
-    app: roboshop-payment
+    app: payment
 spec:
   containers:
-    - name: roboshop-payment
+    - name: payment
       image: burlash.azurecr.io/payment:latest
       imagePullPolicy: Always
       envFrom:
           - configMapRef:
-              name: roboshop-payment
+              name: payment
   
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: roboshop-payment
+  name: payment
 spec:
   selector:
-    app: roboshop-payment
+    app: payment
   ports:
     - protocol: TCP
       port: 8005 # Service Port
@@ -167,26 +167,26 @@ spec:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: roboshop-ratings
+  name: ratings
   labels:
-    app: roboshop-ratings
+    app: ratings
 spec:
   containers:
-    - name: roboshop-ratings
+    - name: ratings
       image: burlash.azurecr.io/ratings:latest
       imagePullPolicy: Always
       envFrom:
           - configMapRef:
-              name: roboshop-ratings
+              name: ratings
   
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: roboshop-ratings
+  name: ratings
 spec:
   selector:
-    app: roboshop-ratings
+    app: ratings
   ports:
     - protocol: TCP
       port: 8006 # Service Port
@@ -195,26 +195,26 @@ spec:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: roboshop-orders
+  name: orders
   labels:
-    app: roboshop-orders
+    app: orders
 spec:
   containers:
-    - name: roboshop-orders
+    - name: orders
       image: burlash.azurecr.io/orders:latest
       imagePullPolicy: Always
       envFrom:
           - configMapRef:
-              name: roboshop-orders
+              name: orders
   
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: roboshop-orders
+  name: orders
 spec:
   selector:
-    app: roboshop-orders
+    app: orders
   ports:
     - protocol: TCP
       port: 8007 # Service Port
@@ -224,16 +224,16 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: roboshop-cart
+  name: cart
 data:
   REDIS_HOST : valkey-dev.shashidevops.online
-  CATALOGUE_URL : http://roboshop-catalogue:8002
+  CATALOGUE_URL : http://catalogue:8002
   PORT : "8003"
 ---
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: roboshop-catalogue
+  name: catalogue
 data:
   MYSQL_HOST : mysql-dev.shashidevops.online
   MYSQL_USER : catalogue
@@ -245,16 +245,16 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: roboshop-user
+  name: user
 data:
   MONGO_URL : mongodb://mongodb-dev.shashidevops.online:27017/users
-  JWT_SECRET : roboshop-secret-key
+  JWT_SECRET : secret-key
   PORT : "8001"
 ---
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: roboshop-shipping
+  name: shipping
 data:
   DB_HOST : mysql-dev.shashidevops.online
   DB_USER : shipping
@@ -265,32 +265,32 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: roboshop-payment
+  name: payment
 data:
   AMQP_HOST : rabbitmq-dev.shashidevops.online
   AMQP_USER : roboshop
   AMQP_PASS : RoboShop@1
-  CART_URL : http://roboshop-cart:8003
-  USER_URL : http://roboshop-user:8001
+  CART_URL : http://cart:8003
+  USER_URL : http://user:8001
   PORT : "8005"
 ---
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: roboshop-orders
+  name: orders
 data:
   MONGO_URL : mongodb://mongodb-dev.shashidevops.online:27017/orders
   AMQP_HOST : rabbitmq-dev.shashidevops.online
   AMQP_USER : roboshop
   AMQP_PASS : RoboShop@1
-  SHIPPING_URL : http://roboshop-shipping:8004
+  SHIPPING_URL : http://shipping:8004
   NOTIFICATION_URL : http://localhost:8008
   PORT : "8007"
 ---
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: roboshop-ratings
+  name: ratings
 data:
   MYSQL_HOST : mysql-dev.shashidevops.online
   MYSQL_USER : ratings
@@ -303,7 +303,7 @@ data:
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: roboshop-catalogue-db
+  name: catalogue-db
 spec:
   template:
     spec:
@@ -314,53 +314,53 @@ spec:
         imagePullPolicy: Always
         envFrom:
           - configMapRef:
-              name: roboshop-catalogue
+              name: catalogue
 
 ---
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: roboshop-ratings-db
+  name: ratings-db
 spec:
   template:
     spec:
       restartPolicy: Never
       containers:
-      - name: roboshop-ratings-db
+      - name: ratings-db
         image: burlash.azurecr.io/ratings-db
         imagePullPolicy: Always
         envFrom:
           - configMapRef:
-              name: roboshop-ratings
+              name: ratings
 ---
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: roboshop-shipping-db
+  name: shipping-db
 spec:
   template:
     spec:
       restartPolicy: Never
       containers:
-      - name: roboshop-shipping-db
+      - name: shipping-db
         image: burlash.azurecr.io/shipping-db
         imagePullPolicy: Always
         envFrom:
           - configMapRef:
-              name: roboshop-shipping
+              name: shipping
 ---
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: roboshop-user-db
+  name: user-db
 spec:
   template:
     spec:
       restartPolicy: Never
       containers:
-      - name: roboshop-user-db
+      - name: user-db
         image: burlash.azurecr.io/user-db
         imagePullPolicy: Always
         envFrom:
           - configMapRef:
-              name: roboshop-user
+              name: user
