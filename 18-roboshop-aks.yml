@@ -279,3 +279,67 @@ data:
   PORT : "8006"
 
 ---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: roboshop-catalogue-db
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: catalogue-db
+        image: burlash.azurecr.io/roboshop-catalogue-db
+        imagePullPolicy: Always
+        envFrom:
+          - configMapRef:
+              name: roboshop-catalogue
+
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: roboshop-ratings-db
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: ratings-db
+        image: burlash.azurecr.io/roboshop-ratings-db
+        imagePullPolicy: Always
+        envFrom:
+          - configMapRef:
+              name: roboshop-ratings
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: roboshop-shipping-db
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: shipping-db
+        image: burlash.azurecr.io/roboshop-shipping-db
+        imagePullPolicy: Always
+        envFrom:
+          - configMapRef:
+              name: roboshop-shipping
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: roboshop-user-db
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: user-db
+        image: burlash.azurecr.io/roboshop-user-db
+        imagePullPolicy: Always
+        envFrom:
+          - configMapRef:
+              name: roboshop-user
