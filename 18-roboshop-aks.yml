@@ -8,8 +8,8 @@ spec:
   containers:
     - name: frontend
       image: burlash.azurecr.io/frontend:latest
-  imagePullSecrets:
-    - name: acr
+      imagePullPolicy: Always
+  
 ---
 apiVersion: v1
 kind: Service
@@ -34,8 +34,11 @@ spec:
   containers:
     - name: catalogue
       image: burlash.azurecr.io/catalogue:latest
-  imagePullSecrets:
-    - name: acr
+      imagePullPolicy: Always
+      envFrom:
+        - configMapRef:
+            name: roboshop-catalogue
+  
 ---
 apiVersion: v1
 kind: Service
@@ -59,8 +62,11 @@ spec:
   containers:
     - name: user
       image: burlash.azurecr.io/user:latest
-  imagePullSecrets:
-    - name: acr
+      imagePullPolicy: Always
+      envFrom:
+          - configMapRef:
+              name: roboshop-user
+  
 ---
 apiVersion: v1
 kind: Service
@@ -84,8 +90,11 @@ spec:
   containers:
     - name: cart
       image: burlash.azurecr.io/cart:latest
-  imagePullSecrets:
-    - name: acr
+      imagePullPolicy: Always
+      envFrom:
+          - configMapRef:
+              name: roboshop-cart
+  
 ---
 apiVersion: v1
 kind: Service
@@ -109,8 +118,11 @@ spec:
   containers:
     - name: shipping
       image: burlash.azurecr.io/shipping:latest
-  imagePullSecrets:
-    - name: acr
+      imagePullPolicy: Always
+      envFrom:
+          - configMapRef:
+              name: roboshop-shipping
+  
 ---
 apiVersion: v1
 kind: Service
@@ -134,8 +146,11 @@ spec:
   containers:
     - name: payment
       image: burlash.azurecr.io/payment:latest
-  imagePullSecrets:
-    - name: acr
+      imagePullPolicy: Always
+      envFrom:
+          - configMapRef:
+              name: roboshop-payment
+  
 ---
 apiVersion: v1
 kind: Service
@@ -159,8 +174,11 @@ spec:
   containers:
     - name: ratings
       image: burlash.azurecr.io/ratings:latest
-  imagePullSecrets:
-    - name: acr
+      imagePullPolicy: Always
+      envFrom:
+          - configMapRef:
+              name: roboshop-ratings
+  
 ---
 apiVersion: v1
 kind: Service
@@ -184,8 +202,11 @@ spec:
   containers:
     - name: orders
       image: burlash.azurecr.io/orders:latest
-  imagePullSecrets:
-    - name: acr
+      imagePullPolicy: Always
+      envFrom:
+          - configMapRef:
+              name: roboshop-orders
+  
 ---
 apiVersion: v1
 kind: Service
@@ -289,7 +310,7 @@ spec:
       restartPolicy: Never
       containers:
       - name: catalogue-db
-        image: burlash.azurecr.io/roboshop-catalogue-db
+        image: burlash.azurecr.io/catalogue-db
         imagePullPolicy: Always
         envFrom:
           - configMapRef:
@@ -306,7 +327,7 @@ spec:
       restartPolicy: Never
       containers:
       - name: ratings-db
-        image: burlash.azurecr.io/roboshop-ratings-db
+        image: burlash.azurecr.io/ratings-db
         imagePullPolicy: Always
         envFrom:
           - configMapRef:
@@ -322,7 +343,7 @@ spec:
       restartPolicy: Never
       containers:
       - name: shipping-db
-        image: burlash.azurecr.io/roboshop-shipping-db
+        image: burlash.azurecr.io/shipping-db
         imagePullPolicy: Always
         envFrom:
           - configMapRef:
@@ -338,7 +359,7 @@ spec:
       restartPolicy: Never
       containers:
       - name: user-db
-        image: burlash.azurecr.io/roboshop-user-db
+        image: burlash.azurecr.io/user-db
         imagePullPolicy: Always
         envFrom:
           - configMapRef:
