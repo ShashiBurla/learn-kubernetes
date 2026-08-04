@@ -7,14 +7,83 @@ spec:
   replicas: 2
   selector:
     matchLabels:
-      app: satefulset-demo
+      app: web
   template:
     metadata:
       labels:
-        app: satefulset-demo
+        app: web
     spec:
       containers:
       - name: nginx
         image: nginx
         ports:
         - containerPort: 80
+        volumeMounts:
+            - name: data
+              mountPath: /usr/share/nginx/html
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: managed-csi
+        resources:
+          requests:
+            storage: 1Gi
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web
+spec:
+  clusterIP: None
+  selector:
+    app: web
+  ports:
+    - port: 80
+# ---
+# apiVersion: v1
+# kind: Pod
+# metadata:
+#   name: debug
+# spec:
+#   containers:
+#   - name: redhat
+#     image: rkalluru/learnk8s:rhel9-bare
+
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploy01
+  labels:
+    app: guestbook
+    tier: frontend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      tier: frontend
+      app: guestbook
+  template:
+    metadata:
+      labels:
+        tier: frontend
+        app: guestbook
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.25
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-deploy
+spec:
+  selector:
+    tier: frontend
+  ports:
+    - port: 80
