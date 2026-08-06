@@ -1,0 +1,110 @@
+#kubectl label node aks-pool1-27418639-vmss000000 apps=roboshop
+#kubectl label node aks-pool1-27418639-vmss000001 apps=roboshop
+#kubectl label node aks-pool1-27418639-vmss000000 project=backend
+#kubectl label node aks-pool1-27418639-vmss000001 project=frontend
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-no-affinity
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-aff-0
+spec:
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: apps
+            operator: In
+            values:
+            - roboshop
+  containers:
+  - name: nginx
+    image: nginx
+    imagePullPolicy: IfNotPresent
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-aff-1
+spec:
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: apps
+            operator: In
+            values:
+            - roboshop # label that exists
+        - matchExpressions:
+          - key: apps
+            operator: In
+            values:
+            - demo # label that does not exist
+  containers:
+  - name: nginx
+    image: nginx
+    imagePullPolicy: IfNotPresent
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-aff-2
+spec:
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: apps
+            operator: In
+            values:
+            - roboshop
+        - matchExpressions:
+          - key: project
+            operator: In
+            values:
+            - backend
+  containers:
+  - name: nginx
+    image: nginx
+    imagePullPolicy: IfNotPresent
+---
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-aff-3
+spec:
+  affinity:
+    nodeAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 85
+        preference:
+          matchExpressions:
+          - key: project
+            operator: In
+            values:
+            - frontend
+      - weight: 15
+        preference:
+          matchExpressions:
+          - key: project
+            operator: In
+            values:
+            - backend
+  containers:
+  - name: nginx
+    image: nginx
+    imagePullPolicy: IfNotPresent

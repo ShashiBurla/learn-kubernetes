@@ -1,0 +1,28 @@
+# kubectl label nodes aks-pool1-27418639-vmss000001 apptype=demo
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-on-labeled-node
+spec:
+  containers:
+  - name: redhat
+    image: rkalluru/learnk8s:rhel9-bare
+  nodeSelector:
+    apptype: demo
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-with-no-labelled-node
+spec:
+  containers:
+  - name: redhat
+    image: rkalluru/learnk8s:rhel9-bare
+  nodeSelector:
+    apptype: demo1
+
+# In this scenario, pod will not be scheduled anywhere.
+# Want to change this behaviour , if any label is matched then we need to give preference, else atleast the pod should be scheduled.
+# Labels with either or is not possible.
